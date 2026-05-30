@@ -1,39 +1,50 @@
 # 大規模言語モデル入門II 生成型LLMの実装と評価
 
-「大規模言語モデル入門」の続編。ch10〜ch14。  
-Swallow-7B（東工大製、Llama2ベース日本語LLM）を軸に実装。  
-GPU環境（NVIDIA A100/L4 or Apple MPS）推奨。
+「大規模言語モデル入門」の続編。ch10〜ch14。
 
-## 章構成
+## 章構成と実装内容
 
-| 章 | テーマ | キーワード | 状態 |
-|----|--------|-----------|------|
-| ch10 | 性能評価 | llm-jp-eval, Japanese Vicuna QA, LLM-as-a-judge | 実装中 |
-| ch11 | 指示チューニング | QLoRA, Swallow-7B, チャットテンプレート, FLAN形式 | 予定 |
-| ch12 | 選好チューニング | RLHF, DPO, 報酬モデル | 予定 |
-| ch13 | RAG | LangChain, BM25, DPR, LLMへの指示チューニング | 予定 |
-| ch14 | 分散並列学習 | DeepSpeed ZeRO, Megatron-LM, 3次元並列化 | 予定 |
+| 章 | テーマ | 実装 | 実行方法 |
+|----|--------|------|---------|
+| **ch10** | 性能評価 | Exact Match・Token F1・ROUGE-L・LLM-as-a-Judge プロンプト | `python3 ch10/evaluate.py` |
+| **ch11** | 指示チューニング | Alpaca形式データセット + QLoRA (rinna/japanese-gpt2-medium) | `python3 ch11/instruction_tuning.py` |
+| **ch12** | 選好チューニング | DPO損失fromスクラッチ + DPOTrainer クラス実装 | `python3 ch12/dpo.py` |
+| **ch13** | RAG | Faiss類似検索 + LangChain統合 + RAGプロンプト + 生成デモ | `python3 ch13/rag_pipeline.py` |
+| **ch14** | 分散並列学習 | DeepSpeed ZeRO設定JSON + DataParallelデモ + メモリ比較図 | `python3 ch14/distributed_training.py` |
 
-## 実行環境
+## 環境構築
 
-```
-torch >= 2.0
-transformers >= 4.40
-peft (QLoRA)
-langchain
-faiss-cpu / faiss-gpu
-deepspeed (ch14のみ)
+```bash
+pip install transformers datasets peft faiss-cpu \
+            langchain-community langchain-core sentencepiece
 ```
 
-## ディレクトリ構成
-
+### ch11・ch12（7Bモデルを使う場合）
+```bash
+pip install bitsandbytes  # 4bit量子化
+# GPU推奨（Swallow-7B等）。コード内のモデル名を変更して使用
 ```
-llm-intro-2/
-├── ch10/         # 性能評価スクリプト
-├── ch11/         # 指示チューニング
-├── ch12/         # 選好チューニング (DPO)
-├── ch13/         # RAG構築
-├── ch14/         # 分散並列学習設定
-├── common/       # 共通ユーティリティ
-└── experiments/  # 実験レポート
+
+## キーコンセプト
+
+### DPO損失（ch12）
+```
+L_DPO = -E[log σ(β × (log π_θ(y+|x)/π_ref(y+|x) - log π_θ(y-|x)/π_ref(y-|x)))]
+```
+chosen(y+)とrejected(y-)のlogプロバビリティ差を最大化する。
+
+### ZeROメモリ削減（ch14）
+
+| Stage | Params | Grads | Optim | Total/GPU (8GPU) |
+|-------|--------|-------|-------|-----------------|
+| ZeRO-0 | 100% | 100% | 100% | 100% |
+| ZeRO-1 | 100% | 100% | 12.5% | 約50% |
+| ZeRO-2 | 100% | 12.5% | 12.5% | 約30% |
+| ZeRO-3 | 12.5% | 12.5% | 12.5% | 約13% |
+
+### RAGパイプライン（ch13）
+```
+質問 → 埋め込み → Faiss検索 → top-k文書取得
+→ プロンプト構築: "以下を参考に回答: {context} 質問: {q}"
+→ LLM生成
 ```
