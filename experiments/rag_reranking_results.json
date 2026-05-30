@@ -1,0 +1,170 @@
+{
+  "bert_model": "cl-tohoku/bert-base-japanese-v3",
+  "n_documents": 30,
+  "n_queries": 10,
+  "bm25_mean_precision_at_3": 0.8,
+  "rerank_mean_precision_at_3": 0.8,
+  "delta": 0.0,
+  "per_query": [
+    {
+      "query": "東京はどのような都市ですか？",
+      "correct_title": "東京の概要",
+      "bm25_top3": [
+        "日本の宗教",
+        "東京の概要",
+        "東京の観光"
+      ],
+      "reranked_top3": [
+        "東京の概要",
+        "京都の文化",
+        "大阪の特徴"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 1.0
+    },
+    {
+      "query": "新幹線はいつ開業しましたか？",
+      "correct_title": "新幹線の歴史",
+      "bm25_top3": [
+        "新幹線の歴史",
+        "日本の交通",
+        "桜の文化"
+      ],
+      "reranked_top3": [
+        "新幹線の歴史",
+        "京都の文化",
+        "日本の交通"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 1.0
+    },
+    {
+      "query": "日本の食文化の特徴を教えてください。",
+      "correct_title": "日本の食文化",
+      "bm25_top3": [
+        "日本の宗教",
+        "沖縄の文化",
+        "東京の概要"
+      ],
+      "reranked_top3": [
+        "日本の食文化",
+        "沖縄の文化",
+        "大阪の特徴"
+      ],
+      "bm25_precision_at_3": 0.0,
+      "rerank_precision_at_3": 1.0
+    },
+    {
+      "query": "富士山の高さはどのくらいですか？",
+      "correct_title": "富士山",
+      "bm25_top3": [
+        "富士山",
+        "武士道と侍文化",
+        "日本の農業"
+      ],
+      "reranked_top3": [
+        "富士山",
+        "東京の概要",
+        "京都の文化"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 1.0
+    },
+    {
+      "query": "京都には何年まで首都がありましたか？",
+      "correct_title": "京都の文化",
+      "bm25_top3": [
+        "京都の文化",
+        "東京の概要",
+        "日本の祭り文化"
+      ],
+      "reranked_top3": [
+        "京都の文化",
+        "東京の概要",
+        "新幹線の歴史"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 1.0
+    },
+    {
+      "query": "日本のアニメはどのくらい人気がありますか？",
+      "correct_title": "アニメ・マンガ文化",
+      "bm25_top3": [
+        "アニメ・マンガ文化",
+        "北海道の魅力",
+        "東京の概要"
+      ],
+      "reranked_top3": [
+        "アニメ・マンガ文化",
+        "ゲーム産業",
+        "北海道の魅力"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 1.0
+    },
+    {
+      "query": "日本の人口問題について教えてください。",
+      "correct_title": "日本の人口問題",
+      "bm25_top3": [
+        "日本の宗教",
+        "東京の概要",
+        "日本の農業"
+      ],
+      "reranked_top3": [
+        "日本の農業",
+        "北海道の魅力",
+        "日本語の特徴"
+      ],
+      "bm25_precision_at_3": 0.0,
+      "rerank_precision_at_3": 0.0
+    },
+    {
+      "query": "温泉地として有名な場所はどこですか？",
+      "correct_title": "温泉文化",
+      "bm25_top3": [
+        "温泉文化",
+        "東京の概要",
+        "沖縄の文化"
+      ],
+      "reranked_top3": [
+        "温泉文化",
+        "北海道の魅力",
+        "東京の概要"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 1.0
+    },
+    {
+      "query": "日本の伝統的な文化について教えてください。",
+      "correct_title": "日本の伝統文化",
+      "bm25_top3": [
+        "日本の伝統文化",
+        "伝統工芸",
+        "日本の宗教"
+      ],
+      "reranked_top3": [
+        "武士道と侍文化",
+        "アニメ・マンガ文化",
+        "大阪の特徴"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 0.0
+    },
+    {
+      "query": "大阪の名物料理は何ですか？",
+      "correct_title": "大阪の特徴",
+      "bm25_top3": [
+        "大阪の特徴",
+        "沖縄の文化",
+        "新幹線の歴史"
+      ],
+      "reranked_top3": [
+        "大阪の特徴",
+        "北海道の魅力",
+        "沖縄の文化"
+      ],
+      "bm25_precision_at_3": 1.0,
+      "rerank_precision_at_3": 1.0
+    }
+  ]
+}
