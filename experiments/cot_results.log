@@ -1,0 +1,31 @@
+============================================================
+Chain-of-Thought Prompting Analysis
+============================================================
+
+── Accuracy by Strategy ──
+Strategy              Overall   2-step   3-step
+------------------------------------------------
+Direct                  55.0%    60.0%    50.0%
+Zero-shot CoT           55.0%    60.0%    50.0%
+Few-shot CoT            85.0%    90.0%    80.0%
+
+CoT improvement (direct→few-shot): +30.0 percentage points
+
+── Sample Responses (3 examples) ──
+
+[Direct]
+  Q: What is (10 * 14 + 2) * 8?
+  Model output: 1214
+  True answer: 1136  Predicted: 1214  ✗
+
+[Few-shot CoT]
+  Q: What is (10 * 14 + 2) * 8?
+  Model output: First compute 10 * 14 = 140 Then 140 + 2 = 142 Then 142 * 8 = 1136 Answer: 861.
+  True answer: 1136  Predicted: 861  ✗
+
+[Zero-shot CoT]
+  Q: What is (13 * 15 + 7) * 10?
+  Model output: First compute 13 * 15 = 195 Then 195 + 7 = 202 Then 202 * 10 = 2020 Therefore the answer is 1760.
+  True answer: 2020  Predicted: 1760  ✗
+
+Results saved → /Users/matsumura-tao/sources/imai-lab/llm-intro-2/experiments/cot_results.json
